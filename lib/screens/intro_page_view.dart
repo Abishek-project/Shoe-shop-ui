@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoe_shop_ui/screens/home_view.dart';
 
 class IntroPageView extends StatelessWidget {
   const IntroPageView({super.key});
@@ -6,7 +7,7 @@ class IntroPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[250],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -31,28 +32,35 @@ class IntroPageView extends StatelessWidget {
           /// widget with a black background color and rounded corners. Inside the `Container`, there is
           /// a `Center` widget containing a `Text` widget with the text "Shop" in white color and bold
           /// font. This method is used to display a button at the bottom of the screen.
-          bottomButton()
+          bottomButton(context)
         ],
       ),
     );
   }
 
-  bottomButton() {
+  bottomButton(context) {
     return Padding(
       padding: const EdgeInsets.all(25.0),
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: Colors.grey[900], borderRadius: BorderRadius.circular(12)),
-        child: const Center(
-          child: Padding(
-            padding: EdgeInsets.all(25.0),
-            child: Text(
-              "Shop",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
+      child: GestureDetector(
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeView(),
+            )),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: Colors.grey[900], borderRadius: BorderRadius.circular(12)),
+          child: const Center(
+            child: Padding(
+              padding: EdgeInsets.all(25.0),
+              child: Text(
+                "Shop",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ),
@@ -73,7 +81,7 @@ class IntroPageView extends StatelessWidget {
             height: 24,
           ),
           Text(
-            "Brand new sneakers and custom kicks with high quality ",
+            "Brand new sneakers and custom kicks made with premium quality",
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),
@@ -85,7 +93,7 @@ class IntroPageView extends StatelessWidget {
 
   Padding logoWidget() {
     return Padding(
-      padding: const EdgeInsets.all(25.0),
+      padding: const EdgeInsets.all(20.0),
       child: Image.asset("assets/nike-logo.png"),
     );
   }

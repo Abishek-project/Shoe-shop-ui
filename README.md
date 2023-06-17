@@ -7,4 +7,6 @@ Our shoe shopping app is designed to provide users with a seamless and convenien
 - google_nav_bar: [link](https://pub.dev/packages/google_nav_bar)
 - provider : [link](https://pub.dev/packages/provider)
 ### DEMO
-![Video Name](shoeShop.gif)
+<img src="shoeShop.gif" alt="Alt Text" height="700">
+
+

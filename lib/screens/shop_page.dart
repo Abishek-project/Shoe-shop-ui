@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shoe_shop_ui/models/cart.dart';
+
+import '../models/shoe.dart';
 
 class ShopView extends StatefulWidget {
   const ShopView({super.key});
@@ -11,63 +14,77 @@ class ShopView extends StatefulWidget {
 class _ShopViewState extends State<ShopView> {
   Cart cart = Cart();
 
+  void addToCart(Shoe shoe) {
+    Provider.of<Cart>(context, listen: false).addShoesToCart(shoe);
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        title: const Text("Successfully added!"),
+        content: const Text("Check Yout Cart"),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        searchWidget(),
-        textDescription(),
-        hotPicks(),
-        const SizedBox(
-          height: 15,
-        ),
-        Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: cart.shoesCollection.length,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: const EdgeInsets.only(left: 25),
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                width: 280,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        shoeImageWidget(index),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25),
-                          child: shoeDescription(index),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Consumer<Cart>(
+      builder: (context, value, child) => Column(
+        children: [
+          searchWidget(),
+          textDescription(),
+          hotPicks(),
+          const SizedBox(
+            height: 15,
+          ),
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: cart.shoesCollection.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: const EdgeInsets.only(left: 25),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  width: 280,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
                         children: [
-                          shoeDetailWidget(index),
-                          addToCartButton(),
+                          shoeImageWidget(index),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
+                            child: shoeDescription(index),
+                          ),
                         ],
                       ),
-                    )
-                  ],
-                ),
-              );
-            },
+                      Padding(
+                        padding: const EdgeInsets.only(left: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            shoeDetailWidget(index),
+                            addToCartButton(cart.shoesCollection[index]),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 25, left: 25, right: 25),
-          child: Divider(
-            color: Colors.transparent,
-          ),
-        )
-      ],
+          const Padding(
+            padding: EdgeInsets.only(top: 25, left: 25, right: 25),
+            child: Divider(
+              color: Colors.transparent,
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -110,7 +127,7 @@ class _ShopViewState extends State<ShopView> {
     );
   }
 
-  Container addToCartButton() {
+  addToCartButton(shoe) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
@@ -118,7 +135,9 @@ class _ShopViewState extends State<ShopView> {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(12), bottomRight: Radius.circular(12))),
       child: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          addToCart(shoe);
+        },
         icon: const Icon(
           Icons.add,
           color: Colors.white,

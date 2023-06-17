@@ -1,6 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shoe_shop_ui/models/shoe.dart';
 
-class Cart {
+class Cart extends ChangeNotifier {
   List<Shoe> shoesCollection = [
     Shoe(
         shoeName: "Zoom Freak",
@@ -28,21 +29,23 @@ class Cart {
         imagePath: "assets/red.png"),
   ];
 
-  List userCart = [];
+  List<Shoe> userCart = [];
 
-  List shoeList() {
+  List<Shoe> getShoeList() {
     return shoesCollection;
   }
 
-  List getUserCart() {
+  List<Shoe> getUserCart() {
     return userCart;
   }
 
   addShoesToCart(Shoe shoe) {
     userCart.add(shoe);
+    notifyListeners();
   }
 
-  removeShoesToCart(Shoe shoe) {
+  void removeShoesFromCart(Shoe shoe) {
     userCart.remove(shoe);
+    notifyListeners();
   }
 }

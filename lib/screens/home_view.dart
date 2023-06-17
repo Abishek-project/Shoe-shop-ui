@@ -13,6 +13,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int selectedIndex = 0;
+
   List<Widget> pages = [
     const ShopView(),
     const CartView(),

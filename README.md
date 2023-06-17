@@ -1,16 +1,8 @@
 # shoe_shop_ui
 
-A new Flutter project.
+Our shoe shopping app is designed to provide users with a seamless and convenient way to explore and purchase their favorite footwear. The app features three main pages: the intro page, home page, and cart page, all aimed at enhancing the user experience.
 
-## Getting Started
+**Packages we are using:**
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- google_nav_bar: [link](https://pub.dev/packages/google_nav_bar)
+- provider : [link](https://pub.dev/packages/provider)

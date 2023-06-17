@@ -1,18 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:shoe_shop_ui/screens/cart_view.dart';
+import 'package:shoe_shop_ui/screens/shop_page.dart';
 
-class HomeView extends StatelessWidget {
+import '../components/bottom_navigation.dart';
+
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  int selectedIndex = 0;
+  List<Widget> pages = [
+    const ShopView(),
+    const CartView(),
+  ];
+  navigationTabChange(index) {
+    selectedIndex = index;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationWidget(
+        tabChange: (index) => navigationTabChange(index),
+      ),
       backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
+      appBar: _appBar(),
+      drawer: menuDrawer(),
+      body: pages[selectedIndex],
+    );
+  }
+
+  AppBar _appBar() {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      leading: Builder(
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 12),
+            child: IconButton(
               icon: const Icon(
                 Icons.menu,
                 color: Colors.black,
@@ -20,11 +51,10 @@ class HomeView extends StatelessWidget {
               onPressed: () {
                 Scaffold.of(context).openDrawer(); // Open the drawer
               },
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
-      drawer: menuDrawer(),
     );
   }
 
